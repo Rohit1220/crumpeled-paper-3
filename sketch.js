@@ -1,9 +1,11 @@
 const Engine = Matter.Engine;
 const World = Matter.World;
 const Bodies = Matter.Bodies;
+const Constraint = Matter.Constraint;
 const Body = Matter.Body;
 const Render = Matter.Render;
 var dustbinObj,groundObject	
+var gameState = launched = (paperObject.velocityx<=1 || paperObject.velocityY<=0.5)
 var world;
 function setup() {
 	createCanvas(1600, 700);
@@ -32,6 +34,15 @@ function draw() {
   dustbinObj.display();
   paperObject.display();
   groundObject.display();
-  sling1.display();
+  slingshot.display();
   drawSprites();
+}
+function mouseDragged(){
+    if (gameState!=="launched"){
+        Matter.Body.setPosition(paperObject.body, {x: mouseX , y: mouseY});
+    }
+}
+function mouseReleased(){
+    slingshot.fly();
+    gameState = "launched";
 }
